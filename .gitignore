@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+  <h2>Riwayat Peminjaman</h2>
+</div>
+
+<div class="card table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Ruangan</th>
+        <th>Tanggal</th>
+        <th>Waktu</th>
+        <th>Keperluan</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if bookings %}
+        {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.room_name }} ({{ booking.location }})</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.start_time }} - {{ booking.end_time }}</td>
+          <td>{{ booking.purpose }}</td>
+          <td><span class="badge {{ booking.status }}">{{ booking.status }}</span></td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="5">Belum ada riwayat peminjaman.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+

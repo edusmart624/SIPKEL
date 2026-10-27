@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-wrap card">
+  <h3>Daftar Akun Mahasiswa</h3>
+  <form method="POST" action="{{ url_for('register') }}">
+    <label>
+      Nama lengkap
+      <input type="text" name="name" placeholder="Masukkan nama lengkap" required />
+    </label>
+    <label>
+      NIM
+      <input type="text" name="nim" placeholder="Contoh: 220101001" required />
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" placeholder="Buat password" required />
+    </label>
+    <button class="btn" type="submit">Daftar</button>
+    <p>Sudah punya akun? <a href="{{ url_for('login') }}">Masuk sekarang</a></p>
+  </form>
+</div>
+{% endblock %}
+

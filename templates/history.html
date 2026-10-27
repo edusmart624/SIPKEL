@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-wrap card">
+  <h3>Ajukan Peminjaman Kelas</h3>
+  <form method="POST" action="{{ url_for('book') }}">
+    <label>
+      Ruangan
+      <select name="room_id" required>
+        <option value="">Pilih ruangan</option>
+        {% for room in rooms %}
+          <option value="{{ room.id }}">{{ room.name }} - {{ room.location }} (kapasitas {{ room.capacity }})</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div class="grid-2">
+      <label>
+        Tanggal
+        <input type="date" name="date" required />
+      </label>
+      <label>
+        Keperluan
+        <input type="text" name="purpose" placeholder="Contoh: Kelas Praktikum" required />
+      </label>
+    </div>
+
+    <div class="grid-2">
+      <label>
+        Jam mulai
+        <input type="time" name="start_time" required />
+      </label>
+      <label>
+        Jam selesai
+        <input type="time" name="end_time" required />
+      </label>
+    </div>
+
+    <button class="btn" type="submit">Ajukan Peminjaman</button>
+  </form>
+</div>
+{% endblock %}
+

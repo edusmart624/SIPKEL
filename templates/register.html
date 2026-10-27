@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero">
+  <div>
+    <div class="page-header">
+      <h2>Selamat datang di SIPKEL</h2>
+    </div>
+    <p>
+      Sistem Informasi Peminjaman Kelas memudahkan mahasiswa untuk mengajukan peminjaman ruang kelas
+      dengan cepat, aman, dan terdokumentasi.
+    </p>
+    <div class="metrics">
+      <div class="metric-box">
+        <strong>5+</strong>
+        Ruang terdaftar
+      </div>
+      <div class="metric-box">
+        <strong>24/7</strong>
+        Akses mudah
+      </div>
+      <div class="metric-box">
+        <strong>1 klik</strong>
+        Ajukan izin
+      </div>
+    </div>
+  </div>
+
+  <div class="card form-wrap">
+    <h3>Masuk ke akun</h3>
+    <form method="POST" action="{{ url_for('login') }}">
+      <label>
+        NIM
+        <input type="text" name="nim" placeholder="Contoh: 220101001" required />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" placeholder="Masukkan password" required />
+      </label>
+      <button class="btn" type="submit">Login</button>
+      <p>
+        Belum punya akun?
+        <a href="{{ url_for('register') }}">Daftar di sini</a>
+      </p>
+      <p>
+        Admin demo: NIM <strong>admin</strong>, password <strong>admin123</strong>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

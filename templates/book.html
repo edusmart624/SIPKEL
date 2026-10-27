@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+  <h2>Dashboard SIPKEL</h2>
+  <p>Halo, {{ user.name }} ({{ user.role }})</p>
+</div>
+
+<div class="section-title">
+  <h3>Riwayat Peminjaman</h3>
+  <a href="{{ url_for('book') }}" class="btn">+ Ajukan Peminjaman</a>
+</div>
+
+<div class="card table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Ruangan</th>
+        <th>Lokasi</th>
+        <th>Tanggal</th>
+        <th>Waktu</th>
+        <th>Keperluan</th>
+        <th>Status</th>
+        {% if user.role == 'admin' %}
+          <th>Mahasiswa</th>
+          <th>Aksi</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% if bookings %}
+        {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.room_name }}</td>
+          <td>{{ booking.location }}</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.start_time }} - {{ booking.end_time }}</td>
+          <td>{{ booking.purpose }}</td>
+          <td>
+            <span class="badge {{ booking.status }}">{{ booking.status }}</span>
+          </td>
+          {% if user.role == 'admin' %}
+            <td>{{ booking.student_name }} ({{ booking.nim }})</td>
+            <td>
+              <form method="POST" action="{{ url_for('update_booking_status', booking_id=booking.id) }}" style="display:flex; flex-wrap:wrap; gap:8px;">
+                <input type="hidden" name="status" value="approved" />
+                <button class="btn" type="submit">Setuju</button>
+              </form>
+              <form method="POST" action="{{ url_for('update_booking_status', booking_id=booking.id) }}" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                <input type="hidden" name="status" value="rejected" />
+                <button class="btn danger" type="submit">Tolak</button>
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="7">Belum ada data peminjaman.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
